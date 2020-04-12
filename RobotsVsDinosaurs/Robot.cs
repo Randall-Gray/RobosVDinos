@@ -12,9 +12,9 @@ namespace RobotsVsDinosaurs
         public string name;
         public int health;
         public int powerLevel;
+        public int powerExpenditure;
 
         public Weapon weapon;
-        Random randomGenerator;    // Decides if attack is successful or not.
 
         // Constructor - created without a weapon - Everything starts with same health and energy/powerLevel level.
         public Robot(string name)
@@ -22,8 +22,7 @@ namespace RobotsVsDinosaurs
             this.name = name;
             health = 100;
             powerLevel = 100;
-
-            randomGenerator = new Random();
+            powerExpenditure = 5;       // robot can do about 20 attacks before it must rest.
         }
 
         // Member methods
@@ -35,11 +34,21 @@ namespace RobotsVsDinosaurs
         // Robot attacks passed in dinosaur.
         public void RobotAttack(Dinosaur dinosaur)
         {
-            int successful = randomGenerator.Next(0, 1);
-
-          //  if (successful != 0)
+            // Dead robot can't atack.
+            if (health <= 0)
+                return;
+            // Robot must rest this round.
+            if (powerLevel < powerExpenditure)
+            {
+                powerLevel = 100;       // Robot is fully recovered
+            }
+            else    // Robot attacks dinosaur.
             {
                 dinosaur.health -= weapon.attackPower;
+                // Can't be more than dead.
+                if (dinosaur.health < 0)
+                    dinosaur.health = 0;
+                powerLevel -= powerExpenditure;
             }
         }
     }

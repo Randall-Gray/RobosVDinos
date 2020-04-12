@@ -22,6 +22,11 @@ namespace RobotsVsDinosaurs
         {
             Dinosaurs.Add(dinosaur);
         }
+        public void RemoveDinosaur(int indexDinosaur)
+        {
+            if (indexDinosaur < Dinosaurs.Count)
+                Dinosaurs.RemoveAt(indexDinosaur);
+        }
         public int HerdSize()
         {
             return Dinosaurs.Count;

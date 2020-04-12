@@ -20,7 +20,10 @@ namespace RobotsVsDinosaurs
 
             AddWeapon("sword", 10);
             AddWeapon("gun", 20);
-            AddWeapon("grenade", 50);
+            AddWeapon("grenade launcher", 70);
+            AddWeapon("flamethrower", 50);
+            AddWeapon("knife", 4);
+            AddWeapon("punch", 1);
 
             randomGenerator = new Random();
         }

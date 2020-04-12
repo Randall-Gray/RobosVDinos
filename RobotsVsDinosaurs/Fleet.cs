@@ -22,6 +22,11 @@ namespace RobotsVsDinosaurs
         {
             Robots.Add(robot);
         }
+        public void RemoveRobot(int indexRobot)
+        {
+            if (indexRobot < Robots.Count)
+                Robots.RemoveAt(indexRobot);
+        }
         public int FleetSize()
         {
             return Robots.Count;

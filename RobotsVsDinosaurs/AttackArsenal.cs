@@ -18,9 +18,11 @@ namespace RobotsVsDinosaurs
         {
             availableAttacks = new List<DinoAttack>();
 
-            AddDinoAttack("slash", 15);
+            AddDinoAttack("slash", 25);
             AddDinoAttack("stomp", 50);
-            AddDinoAttack("bite", 30);
+            AddDinoAttack("bite", 80);
+            AddDinoAttack("vomit", 5);
+            AddDinoAttack("laugh", 0);
 
             randomGenerator = new Random();
         }

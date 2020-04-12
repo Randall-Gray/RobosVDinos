@@ -9,16 +9,16 @@ namespace RobotsVsDinosaurs
     class Battlefield
     {
         // Member variables
-        public Fleet Robots;
-        public Herd Dinosaurs;
+        public Fleet robotFleet;
+        public Herd dinosaurHerd;
 
-        Random randomGenerator;    // Decides which dinosaur/robot attacks which dinosaur/robot.
+        Random randomGenerator;    // Decides which dinosaur/robot attacks which dinosaur/robot. And which attacks first.
 
         // Constructor
         public Battlefield()
         {
-            Robots = new Fleet();
-            Dinosaurs = new Herd();
+            robotFleet = new Fleet();
+            dinosaurHerd = new Herd();
 
             randomGenerator = new Random();
         }
@@ -29,26 +29,46 @@ namespace RobotsVsDinosaurs
             Robot robot = new Robot(name);
             robot.ChangeWeapon(weapon);
 
-            Robots.AddRobot(robot);
+            robotFleet.AddRobot(robot);
         }
         public void AddDinosaur(string type, DinoAttack attack)
         {
             Dinosaur dinosaur = new Dinosaur(type);
             dinosaur.ChangeAttack(attack);
-            Dinosaurs.AddDinosaur(dinosaur);
+
+            dinosaurHerd.AddDinosaur(dinosaur);
         }
         public void DoBattle()
         {
             int choosenRobot = 0;
             int choosenDinosaur = 0;
+            int whoAttacksFirst = 0;
 
-            while (Robots.FleetHealth() > 0 && Dinosaurs.HerdHealth() > 0)
+            while (robotFleet.FleetHealth() > 0 && dinosaurHerd.HerdHealth() > 0)
             {
-                choosenRobot = randomGenerator.Next(0, Robots.FleetSize()-1);
-                choosenDinosaur = randomGenerator.Next(0, Dinosaurs.HerdSize() - 1);
+                whoAttacksFirst = randomGenerator.Next(0, 100) % 2;
+                choosenRobot = randomGenerator.Next(0, robotFleet.FleetSize() - 1);
+                choosenDinosaur = randomGenerator.Next(0, dinosaurHerd.HerdSize() - 1);
 
-                Robots.Robots[choosenRobot].RobotAttack(Dinosaurs.Dinosaurs[choosenDinosaur]);
-                Dinosaurs.Dinosaurs[choosenDinosaur].DinosaurAttack(Robots.Robots[choosenRobot]);
+                if (whoAttacksFirst == 0)         // Robot attacks first
+                {
+                    robotFleet.Robots[choosenRobot].RobotAttack(dinosaurHerd.Dinosaurs[choosenDinosaur]);
+                    dinosaurHerd.Dinosaurs[choosenDinosaur].DinosaurAttack(robotFleet.Robots[choosenRobot]);
+                }
+                else         // Dinosaur attacks first
+                {
+                    dinosaurHerd.Dinosaurs[choosenDinosaur].DinosaurAttack(robotFleet.Robots[choosenRobot]);
+                    robotFleet.Robots[choosenRobot].RobotAttack(dinosaurHerd.Dinosaurs[choosenDinosaur]);
+                }
+                // Remove the dead dinosaur/robot from the battlefield.
+                if (dinosaurHerd.Dinosaurs[choosenDinosaur].health <= 0)
+                {
+                    dinosaurHerd.RemoveDinosaur(choosenDinosaur);
+                }
+                if (robotFleet.Robots[choosenRobot].health <= 0)
+                {
+                    robotFleet.RemoveRobot(choosenRobot);
+                }
             }
         }
         public void ConsoleWriteStatus()
@@ -58,27 +78,27 @@ namespace RobotsVsDinosaurs
             else if (DinosaursWon())
                 Console.WriteLine("Dinosaurs Won!");
             else
-                Console.WriteLine("Robot vs Dinosaur Battle has not started!");
+                Console.WriteLine("Robot vs Dinosaur Battle is in progress!");
 
-            Console.WriteLine("\nRobots on Battlefield: (Total Health: " + Robots.FleetHealth() + " )");
-            for (int i=0; i<Robots.FleetSize(); i++)
+            Console.WriteLine("\nRobots on Battlefield: (Total Health: " + robotFleet.FleetHealth() + " )");
+            for (int i=0; i<robotFleet.FleetSize(); i++)
             {
-                Console.WriteLine(Robots.Robots[i].name + "\t - Health: " + Robots.Robots[i].health + "\t PowerLevel: " + Robots.Robots[i].powerLevel + "\t Weapon: " + Robots.Robots[i].weapon.type);
+                Console.WriteLine(robotFleet.Robots[i].name + "\t - Health: " + robotFleet.Robots[i].health + "\t PowerLevel: " + robotFleet.Robots[i].powerLevel + "\t Weapon: " + robotFleet.Robots[i].weapon.type);
             }
-            Console.WriteLine("\nDinosaurs on Battlefield: (Total Health: " + Dinosaurs.HerdHealth() + " )");
-            for (int i = 0; i < Dinosaurs.HerdSize(); i++)
+            Console.WriteLine("\nDinosaurs on Battlefield: (Total Health: " + dinosaurHerd.HerdHealth() + " )");
+            for (int i = 0; i < dinosaurHerd.HerdSize(); i++)
             {
-                Console.WriteLine(Dinosaurs.Dinosaurs[i].type + "\t - Health: " + Dinosaurs.Dinosaurs[i].health + "\t Energy: " + Dinosaurs.Dinosaurs[i].energy + "\t Attack: " + Dinosaurs.Dinosaurs[i].attack.type);
+                Console.WriteLine(dinosaurHerd.Dinosaurs[i].type + "\t - Health: " + dinosaurHerd.Dinosaurs[i].health + "\t Energy: " + dinosaurHerd.Dinosaurs[i].energy + "\t Attack: " + dinosaurHerd.Dinosaurs[i].attack.type);
             }
             Console.ReadLine();
         }
         public bool RobotsWon()
         {
-            return (Robots.FleetHealth() > 0 && Dinosaurs.HerdHealth() <= 0);
+            return (robotFleet.FleetHealth() > 0 && dinosaurHerd.HerdHealth() <= 0);
         }
         public bool DinosaursWon()
         {
-            return (Dinosaurs.HerdHealth() > 0 && Robots.FleetHealth() <= 0);
+            return (dinosaurHerd.HerdHealth() > 0 && robotFleet.FleetHealth() <= 0);
         }
     }
 }
