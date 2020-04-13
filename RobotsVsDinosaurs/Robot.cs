@@ -12,7 +12,7 @@ namespace RobotsVsDinosaurs
         public string name;
         public int health;
         public int powerLevel;
-        public int powerExpenditure;
+        public int powerExpenditure;        // power spent for each attack
 
         public Weapon weapon;
 
@@ -41,13 +41,18 @@ namespace RobotsVsDinosaurs
             if (powerLevel < powerExpenditure)
             {
                 powerLevel = 100;       // Robot is fully recovered
+                Console.WriteLine(name + " must rest.");
             }
             else    // Robot attacks dinosaur.
             {
                 dinosaur.health -= weapon.attackPower;
+                Console.WriteLine(name + " (" + weapon.type + ") attacked " + dinosaur.type + " (" + dinosaur.attack.type + ")");
                 // Can't be more than dead.
-                if (dinosaur.health < 0)
+                if (dinosaur.health <= 0)
+                {
                     dinosaur.health = 0;
+                    Console.WriteLine(dinosaur.type + " is dead.");
+                }
                 powerLevel -= powerExpenditure;
             }
         }

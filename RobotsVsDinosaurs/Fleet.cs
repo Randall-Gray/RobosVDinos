@@ -22,7 +22,7 @@ namespace RobotsVsDinosaurs
         {
             Robots.Add(robot);
         }
-        public void RemoveRobot(int indexRobot)
+        public void RemoveRobot(int indexRobot)     // Dead Robots are removed from the Fleet.
         {
             if (indexRobot < Robots.Count)
                 Robots.RemoveAt(indexRobot);
@@ -31,6 +31,7 @@ namespace RobotsVsDinosaurs
         {
             return Robots.Count;
         }
+        // Total health of all robots in Fleet.
         public int FleetHealth()
         {
             int rtnHealth = 0;

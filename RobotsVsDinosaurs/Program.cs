@@ -21,11 +21,11 @@ namespace RobotsVsDinosaurs
             battlefield.AddDinosaur("Triceratops");
             battlefield.AddDinosaur("Stegosaurus");
 
-            battlefield.ConsoleWriteStatus();
+            battlefield.ConsoleWriteStatus();       // Pre-battle status
 
             battlefield.DoBattle();
 
-            battlefield.ConsoleWriteStatus();
+            battlefield.ConsoleWriteStatus();       // Post-battle status
         }
     }
 }

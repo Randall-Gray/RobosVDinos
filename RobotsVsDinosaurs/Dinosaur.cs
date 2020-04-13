@@ -12,7 +12,7 @@ namespace RobotsVsDinosaurs
         public string type;
         public int health;
         public int energy;
-        public int energyExpenditure;
+        public int energyExpenditure;           // energy spent for each attack
 
         public DinoAttack attack;
 
@@ -41,13 +41,18 @@ namespace RobotsVsDinosaurs
             if (energy < energyExpenditure)
             {
                 energy = 100;       // Dinosuar is fully recovered
+                Console.WriteLine(type + " must rest.");
             }
             else    // Dinosaur attacks robot.
             {
                 robot.health -= attack.attackPower;
+                Console.WriteLine(type + " (" + attack.type + ") attacked " + robot.name + " (" + robot.weapon.type + ")");
                 // Can't be more than dead.
-                if (robot.health < 0)
+                if (robot.health <= 0)
+                {
                     robot.health = 0;
+                    Console.WriteLine(robot.name + " is dead.");
+                }
                 energy -= energyExpenditure;
             }
 

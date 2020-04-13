@@ -22,7 +22,7 @@ namespace RobotsVsDinosaurs
         {
             Dinosaurs.Add(dinosaur);
         }
-        public void RemoveDinosaur(int indexDinosaur)
+        public void RemoveDinosaur(int indexDinosaur)           // Dead Dinosaurs are removed from the Herd.
         {
             if (indexDinosaur < Dinosaurs.Count)
                 Dinosaurs.RemoveAt(indexDinosaur);
@@ -31,6 +31,7 @@ namespace RobotsVsDinosaurs
         {
             return Dinosaurs.Count;
         }
+        // Total health of all dinosaurs in Herd.
         public int HerdHealth()
         {
             int rtnHealth = 0;
