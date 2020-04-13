@@ -54,8 +54,6 @@ namespace RobotsVsDinosaurs
                 choosenRobot = randomGenerator.Next(0, robotFleet.FleetSize() - 1);
                 choosenDinosaur = randomGenerator.Next(0, dinosaurHerd.HerdSize() - 1);
 
-//                Console.WriteLine(robotFleet.Robots[choosenRobot].name + " (" + robotFleet.Robots[choosenRobot].weapon.type + ") vs " + dinosaurHerd.Dinosaurs[choosenDinosaur].type + " (" + dinosaurHerd.Dinosaurs[choosenDinosaur].attack.type + ")");
-
                 if (whoAttacksFirst == 0)         // Robot attacks first
                 {
                     robotFleet.Robots[choosenRobot].RobotAttack(dinosaurHerd.Dinosaurs[choosenDinosaur]);
@@ -71,7 +69,7 @@ namespace RobotsVsDinosaurs
                 {
                     dinosaurHerd.RemoveDinosaur(choosenDinosaur);
                 }
-                else        // Dinosaur changes weapon.
+                else        // Dinosaur changes attack.
                 {
                     dinosaurHerd.Dinosaurs[choosenDinosaur].ChangeAttack(attackArsenal.GetRandomAttack());
                 }
