@@ -11,17 +11,15 @@ namespace RobotsVsDinosaurs
         static void Main(string[] args)
         {
             Battlefield battlefield = new Battlefield();
-            WeaponArsenal weaponArsenal = new WeaponArsenal();
-            AttackArsenal attackArsenal = new AttackArsenal();
             
             // Add the fighters!!
-            battlefield.AddRobot("Tom", weaponArsenal.GetRandomWeapon());
-            battlefield.AddRobot("Dick", weaponArsenal.GetRandomWeapon());
-            battlefield.AddRobot("Harry", weaponArsenal.GetRandomWeapon());
+            battlefield.AddRobot("Tom");
+            battlefield.AddRobot("Dick");
+            battlefield.AddRobot("Harry");
 
-            battlefield.AddDinosaur("Tyrannosaurus Rex", attackArsenal.GetRandomAttack());
-            battlefield.AddDinosaur("Triceratops", attackArsenal.GetRandomAttack());
-            battlefield.AddDinosaur("Stegosaurus", attackArsenal.GetRandomAttack());
+            battlefield.AddDinosaur("Tyrannosaurus Rex");
+            battlefield.AddDinosaur("Triceratops");
+            battlefield.AddDinosaur("Stegosaurus");
 
             battlefield.ConsoleWriteStatus();
 

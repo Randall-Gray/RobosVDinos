@@ -11,6 +11,8 @@ namespace RobotsVsDinosaurs
         // Member variables
         public Fleet robotFleet;
         public Herd dinosaurHerd;
+        public WeaponArsenal weaponArsenal;        // Robot weapons
+        public AttackArsenal attackArsenal;        // Dinosaur attacks
 
         Random randomGenerator;    // Decides which dinosaur/robot attacks which dinosaur/robot. And which attacks first.
 
@@ -19,22 +21,24 @@ namespace RobotsVsDinosaurs
         {
             robotFleet = new Fleet();
             dinosaurHerd = new Herd();
+            weaponArsenal = new WeaponArsenal();
+            attackArsenal = new AttackArsenal();
 
             randomGenerator = new Random();
         }
 
         // Member methods
-        public void AddRobot(string name, Weapon weapon)
+        public void AddRobot(string name)
         {
             Robot robot = new Robot(name);
-            robot.ChangeWeapon(weapon);
+            robot.ChangeWeapon(weaponArsenal.GetRandomWeapon());
 
             robotFleet.AddRobot(robot);
         }
-        public void AddDinosaur(string type, DinoAttack attack)
+        public void AddDinosaur(string type)
         {
             Dinosaur dinosaur = new Dinosaur(type);
-            dinosaur.ChangeAttack(attack);
+            dinosaur.ChangeAttack(attackArsenal.GetRandomAttack());
 
             dinosaurHerd.AddDinosaur(dinosaur);
         }
